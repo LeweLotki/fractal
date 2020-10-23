@@ -16,19 +16,20 @@ def next(point,odw):
     ch_list = random.choices( odw, k = 1 )
     ch_list = ch_list[0]
     # print(ch_list)
-    x_n = int(ch_list[0]*point[-1][-2] + ch_list[1]*point[-1][-1] + ch_list[2])
-    y_n = int(ch_list[3]*point[-1][-2] + ch_list[4]*point[-1][-1] + ch_list[5])
+    x_n = round(ch_list[0]*point[-1][-2] + ch_list[1]*point[-1][-1] + ch_list[2],2)
+    y_n = round(ch_list[3]*point[-1][-2] + ch_list[4]*point[-1][-1] + ch_list[5],2)
     point.extend([[x_n,y_n]])
 
-for i in range(0,600000):
+for i in range(0,100000):
     next(point,odw)
 
 for val in point:
-    img[10*val[0]+int(height/2),10*val[1]+int(width/5),:] = (0,0,0)
+    img[int(10*val[0]+int(height/2)),int(10*val[1]+int(width/5)),:] = (0,0,0)
 
 # print(point)
+img1 = cv2.rotate(img, cv2.cv2.ROTATE_90_COUNTERCLOCKWISE) 
 
-cv2.imshow('fractal',img)
+cv2.imshow('fractal',img1)
 # print(point)
 k = cv2.waitKey(0)
 if k == 27 or k == ord('c'):         # wait for ESC key to exit
